@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro'
 import PostTail from '../../components/PostTail.astro'
+import Timeline from '../../components/Timeline.astro'
 import { pairedPosts } from '../../lib/posts.mjs'
 
 export async function getStaticPaths() {
@@ -11,6 +12,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props
+const posts = await pairedPosts()
 const { Content } = await post.en.render()
 const base = import.meta.env.BASE_URL
 const when = post.en.data.date.toISOString().slice(0, 10)
@@ -22,6 +24,7 @@ const when = post.en.data.date.toISOString().slice(0, 10)
   lang="en"
   alt={post.zh ? `${base}zh/posts/${post.slug}/` : null}
 >
+  <Timeline posts={posts} current={post.slug} lang="en" />
   <article class="post">
     <header>
       <div class="meta">
@@ -32,6 +35,6 @@ const when = post.en.data.date.toISOString().slice(0, 10)
     <div class="prose">
       <Content />
     </div>
-    <PostTail />
+    <PostTail lang="en" />
   </article>
 </Base>

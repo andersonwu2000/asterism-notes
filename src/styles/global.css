@@ -318,6 +318,81 @@ article.post .meta a:hover {
 .syn-cmt { color: var(--ink-faint); font-style: italic; }
 .syn-cmt-ref { color: color-mix(in srgb, var(--syn-num) 90%, transparent); }
 
+/* ---- timeline (post pages, wide screens) -------------------------
+   every post as a star on one vertical thread, the current one lit —
+   it borrows the margin the reading column leaves empty and vanishes
+   when the viewport can't afford it */
+
+.timeline {
+  display: none;
+}
+@media (min-width: 1360px) {
+  .timeline {
+    display: block;
+    position: fixed;
+    top: 10.5rem;
+    left: calc(50% - 22rem - 16.5rem);
+    width: 14rem;
+    max-height: calc(100vh - 14rem);
+    overflow-y: auto;
+  }
+  .timeline ol {
+    list-style: none;
+    margin: 0;
+    padding: 0.2rem 0;
+    border-left: 1px solid var(--edge);
+  }
+  .timeline li a {
+    display: block;
+    position: relative;
+    padding: 0.42rem 0 0.42rem 1.15rem;
+    text-decoration: none;
+  }
+  .timeline .t-dot {
+    position: absolute;
+    left: -2.5px;
+    top: 0.95rem;
+    width: 4px;
+    height: 4px;
+    border-radius: 99px;
+    background: var(--ink-faint);
+    transition: background 0.15s;
+  }
+  .timeline .t-when {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+  }
+  .timeline .t-title {
+    display: block;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--ink-faint);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color 0.15s;
+  }
+  .timeline li a:hover .t-title {
+    color: var(--ink);
+  }
+  .timeline li a:hover .t-dot {
+    background: var(--ink-dim);
+  }
+  .timeline li.now .t-dot {
+    background: var(--starlight);
+    box-shadow: 0 0 6px rgba(244, 245, 248, 0.55);
+    width: 5px;
+    height: 5px;
+    left: -3px;
+  }
+  .timeline li.now .t-title {
+    color: var(--ink);
+  }
+}
+
 /* ---- post footer ------------------------------------------------- */
 
 .post-tail {

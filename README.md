@@ -27,13 +27,9 @@ npm run build      # what CI does
 
 ## One-time wiring (owner checklist)
 
-- **Comments (giscus)**: repo Settings → enable Discussions; install
-  the giscus app (github.com/apps/giscus) on this repo; open
-  giscus.app, pick this repo + mapping "pathname" + a category, and
-  copy the four ids into `src/site.config.mjs`. Until then the email
-  line (if set) stands in.
-- **Email**: set `email` in `src/site.config.mjs` to show it in the
-  footer and under posts.
+- **Email**: set `email` in `src/site.config.mjs` to show the contact
+  line in the footer and under every post. (No comment section, by
+  design — a mailbox is a kinder pace for disagreement.)
 - **Custom domain** (later): repo Settings → Pages → custom domain,
   then change `site`/`base` in `astro.config.mjs`.
 
