@@ -1,0 +1,33 @@
+---
+import Base from '../../../layouts/Base.astro'
+import PostTail from '../../../components/PostTail.astro'
+import { pairedPosts } from '../../../lib/posts.mjs'
+
+export async function getStaticPaths() {
+  const posts = await pairedPosts()
+  return posts
+    .filter((p) => p.zh)
+    .map((p) => ({ params: { slug: p.slug }, props: { post: p } }))
+}
+
+const { post } = Astro.props
+const { Content } = await post.zh.render()
+const base = import.meta.env.BASE_URL
+const when = post.zh.data.date.toISOString().slice(0, 10)
+---
+
+<Base title={post.zh.data.title} description={post.zh.data.description}>
+  <article class="post" lang="zh-Hant">
+    <header>
+      <div class="meta">
+        <span>{when}</span>
+        {post.en && <a href={`${base}posts/${post.slug}/`}>English</a>}
+      </div>
+      <h1>{post.zh.data.title}</h1>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+    <PostTail />
+  </article>
+</Base>

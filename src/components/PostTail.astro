@@ -1,0 +1,40 @@
+---
+import { SITE } from '../site.config.mjs'
+
+/*
+ * Under every post: the conversation invitation. giscus (GitHub
+ * Discussions) when configured; otherwise the email line when set;
+ * otherwise nothing — silence over scaffolding.
+ */
+const g = SITE.giscus
+const giscusOn = g.repo && g.repoId && g.category && g.categoryId
+---
+
+{
+  giscusOn ? (
+    <div class="post-tail">
+      <script
+        src="https://giscus.app/client.js"
+        data-repo={g.repo}
+        data-repo-id={g.repoId}
+        data-category={g.category}
+        data-category-id={g.categoryId}
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="noborder_dark"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async
+      />
+    </div>
+  ) : SITE.email ? (
+    <div class="post-tail">
+      Thoughts, corrections, disagreements — all welcome:{' '}
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    </div>
+  ) : null
+}

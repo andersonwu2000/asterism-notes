@@ -1,0 +1,347 @@
+/*
+ * Asterism notes — the product's visual language, tuned for reading.
+ * Achromatic chrome (greys, black, white); the ONE sanctioned color is
+ * code, via the shared Lean tokenizer's six low-saturation inks. Type
+ * speaks in the same three voices as the console: Fraunces (display),
+ * Inter (text), JetBrains Mono (code) — with CJK stand-ins appended
+ * for the Chinese originals.
+ */
+
+:root {
+  --bg: #0a0a0c;
+  --surface: #101013;
+  --surface-2: #17171b;
+  --edge: rgba(255, 255, 255, 0.07);
+  --edge-strong: rgba(255, 255, 255, 0.15);
+  --ink: #ededf0;
+  --ink-dim: #a2a4ab;
+  --ink-faint: #67696f;
+  --starlight: #f4f5f8;
+
+  --syn-kw: #de8e9f;
+  --syn-decl: #8ab6dd;
+  --syn-sort: #82c0ae;
+  --syn-str: #a6c18b;
+  --syn-num: #d5ac7c;
+  --syn-attr: #b3a0cf;
+
+  --font-sans:
+    'Inter', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei',
+    system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+  --font-display:
+    'Fraunces Variable', Georgia, 'Noto Serif TC', 'PMingLiU', serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* faint nebulae, same restraint as the console's sky */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 40% at 28% 8%, rgba(255, 255, 255, 0.03), transparent),
+    radial-gradient(45% 35% at 80% 90%, rgba(255, 255, 255, 0.02), transparent);
+}
+
+.wrap {
+  position: relative;
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 0 1.4rem;
+}
+
+/* ---- chrome ---------------------------------------------------- */
+
+header.site {
+  padding: 2.6rem 0 0;
+}
+header.site .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+header.site .brand svg {
+  color: var(--starlight);
+}
+header.site .brand span {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+header.site nav {
+  float: right;
+  display: flex;
+  gap: 1.1rem;
+  padding-top: 0.35rem;
+  font-size: 0.82rem;
+}
+header.site nav a {
+  color: var(--ink-faint);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+header.site nav a:hover {
+  color: var(--ink);
+}
+
+footer.site {
+  margin: 5rem 0 3rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--edge);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+}
+footer.site a {
+  color: var(--ink-faint);
+  text-decoration: none;
+}
+footer.site a:hover {
+  color: var(--ink);
+}
+
+/* ---- index ------------------------------------------------------ */
+
+.preamble {
+  margin: 4.2rem 0 3.6rem;
+}
+.preamble h1 {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 480;
+  line-height: 1.25;
+  margin: 0 0 1rem;
+  color: var(--starlight);
+}
+.preamble p {
+  color: var(--ink-dim);
+  margin: 0.6rem 0;
+  max-width: 38rem;
+}
+
+ul.posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ul.posts li {
+  padding: 1.15rem 0;
+  border-top: 1px solid var(--edge);
+}
+ul.posts .when {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+ul.posts .lang {
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  border: 1px solid var(--edge);
+  border-radius: 99px;
+  padding: 0.05rem 0.5rem;
+  margin-left: 0.55rem;
+  text-decoration: none;
+}
+ul.posts a.lang:hover {
+  color: var(--ink);
+  border-color: var(--edge-strong);
+}
+ul.posts h2 {
+  font-family: var(--font-display);
+  font-size: 1.32rem;
+  font-weight: 500;
+  line-height: 1.35;
+  margin: 0.25rem 0 0.3rem;
+}
+ul.posts h2 a {
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+ul.posts h2 a:hover {
+  color: var(--starlight);
+  text-decoration: underline;
+  text-decoration-color: var(--edge-strong);
+  text-underline-offset: 4px;
+}
+ul.posts p.desc {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--ink-dim);
+}
+
+/* ---- article ----------------------------------------------------- */
+
+article.post > header {
+  margin: 4rem 0 2.6rem;
+}
+article.post > header h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 480;
+  line-height: 1.28;
+  margin: 0.3rem 0 0.7rem;
+  color: var(--starlight);
+}
+article.post .meta {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--ink-faint);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  align-items: baseline;
+}
+article.post .meta a {
+  color: var(--ink-faint);
+  text-decoration: underline;
+  text-decoration-color: var(--edge-strong);
+  text-underline-offset: 3px;
+}
+article.post .meta a:hover {
+  color: var(--ink);
+}
+
+.prose {
+  color: var(--ink);
+}
+.prose > * + * {
+  margin-top: 1.1em;
+}
+.prose h2 {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 500;
+  margin: 2.2em 0 0.6em;
+  color: var(--starlight);
+}
+.prose h3 {
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin: 1.8em 0 0.5em;
+}
+.prose a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--edge-strong);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s;
+}
+.prose a:hover {
+  text-decoration-color: var(--ink-dim);
+}
+.prose blockquote {
+  margin: 1.4em 0;
+  padding: 0.1em 0 0.1em 1.1em;
+  border-left: 2px solid var(--edge-strong);
+  color: var(--ink-dim);
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--surface-2);
+  border: 1px solid var(--edge);
+  border-radius: 4px;
+  padding: 0.08em 0.35em;
+}
+.prose pre {
+  background: var(--surface);
+  border: 1px solid var(--edge);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+.prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.82rem;
+}
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--edge);
+  margin: 2.4em 0;
+}
+.prose img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.4em;
+}
+.prose li + li {
+  margin-top: 0.35em;
+}
+.prose .katex {
+  font-size: 1.04em;
+}
+.prose .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2em 0;
+}
+
+/* the six inks — values from the console's index.css (SoT) */
+.syn-kw { color: var(--syn-kw); }
+.syn-decl { color: var(--syn-decl); }
+.syn-sort { color: var(--syn-sort); }
+.syn-str { color: var(--syn-str); }
+.syn-num { color: var(--syn-num); }
+.syn-attr { color: var(--syn-attr); }
+.syn-cmt { color: var(--ink-faint); font-style: italic; }
+.syn-cmt-ref { color: color-mix(in srgb, var(--syn-num) 90%, transparent); }
+
+/* ---- post footer ------------------------------------------------- */
+
+.post-tail {
+  margin-top: 3.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--edge);
+  font-size: 0.88rem;
+  color: var(--ink-dim);
+}
+.post-tail a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--edge-strong);
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 560px) {
+  body {
+    font-size: 16px;
+  }
+  .preamble h1 {
+    font-size: 1.7rem;
+  }
+  article.post > header h1 {
+    font-size: 1.6rem;
+  }
+}
