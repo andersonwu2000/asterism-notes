@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro'
+import Timeline from '../components/Timeline.astro'
 import { pairedPosts } from '../lib/posts.mjs'
 
 const posts = await pairedPosts()
@@ -8,6 +9,7 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10)
 ---
 
 <Base lang="en" alt={`${base}zh/`}>
+  <Timeline posts={posts} current="" lang="en" />
   <section class="preamble">
     <h1>Asterism Notes</h1>
     <p>

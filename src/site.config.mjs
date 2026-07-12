@@ -7,7 +7,7 @@ export const SITE = {
   description:
     'Design notes on having LLM agents write machine-checked mathematics',
   /** the contact line — shown in the footer and under every post */
-  email: '',
+  email: 'andersonwu2000@gmail.com',
   /** the public repo — footer link */
   github: 'https://github.com/andersonwu2000/asterism-notes',
 }
