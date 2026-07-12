@@ -10,7 +10,7 @@ export const SITE = {
   /** shown in the footer and under every post when set */
   email: '',
   /** the public repo — footer link + where discussions live */
-  github: 'https://github.com/andersonwu2000/asterism',
+  github: 'https://github.com/andersonwu2000/asterism-notes',
   /**
    * giscus comments (GitHub Discussions under each post).
    * To enable: 1) repo Settings → enable Discussions,

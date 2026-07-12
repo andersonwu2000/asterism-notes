@@ -4,11 +4,13 @@ import rehypeKatex from 'rehype-katex'
 import { rehypeLean } from './src/lib/rehype-lean.mjs'
 import { rehypeCjkLinebreak } from './src/lib/rehype-cjk-linebreak.mjs'
 
-// GitHub project page: served under /asterism/ — every internal link
-// goes through import.meta.env.BASE_URL.
+// GitHub project page: served under /asterism-notes/ — every internal
+// link goes through import.meta.env.BASE_URL. (Plain "asterism" is
+// the product repo's name — GitHub repo names collide case-
+// insensitively.)
 export default defineConfig({
   site: 'https://andersonwu2000.github.io',
-  base: '/asterism',
+  base: '/asterism-notes',
   trailingSlash: 'always',
   markdown: {
     remarkPlugins: [remarkMath],
