@@ -4,23 +4,17 @@ import { pairedPosts } from '../lib/posts.mjs'
 
 const posts = await pairedPosts()
 const base = import.meta.env.BASE_URL
-const fmt = (d: Date) =>
-  d.toISOString().slice(0, 10)
+const fmt = (d: Date) => d.toISOString().slice(0, 10)
 ---
 
-<Base>
+<Base lang="en" alt={`${base}zh/`}>
   <section class="preamble">
     <h1>Notes on machine&#8209;checked mathematics, written&nbsp;while&nbsp;building&nbsp;it</h1>
     <p>
-      Asterism is a framework in which LLM agents write Lean proofs — and
-      which tries to be precise about where its claims of correctness come
-      from. These notes discuss its design as it takes shape: trust
-      boundaries, the dispatch machinery, what it takes to keep a growing
-      proof library clean.
-    </p>
-    <p>
-      Nothing here is a grand claim; most of it is a working record.
-      Corrections and discussion are welcome.
+      Asterism is a framework in which LLM agents write machine-checked
+      Lean proofs. These notes record its design as it is built — trust
+      boundaries, dispatch machinery, keeping a growing proof library
+      clean. Discussion is welcome.
     </p>
   </section>
   <ul class="posts">
@@ -28,12 +22,7 @@ const fmt = (d: Date) =>
       posts.map((p) => (
         <li>
           <span class="when">{fmt(p.date)}</span>
-          {p.en && p.zh && (
-            <a class="lang" href={`${base}zh/posts/${p.slug}/`}>
-              中文
-            </a>
-          )}
-          {!p.en && p.zh && <span class="lang">中文</span>}
+          {!p.en && <span class="lang">中文</span>}
           <h2>
             <a
               href={

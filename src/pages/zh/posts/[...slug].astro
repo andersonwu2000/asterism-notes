@@ -16,12 +16,16 @@ const base = import.meta.env.BASE_URL
 const when = post.zh.data.date.toISOString().slice(0, 10)
 ---
 
-<Base title={post.zh.data.title} description={post.zh.data.description}>
-  <article class="post" lang="zh-Hant">
+<Base
+  title={post.zh.data.title}
+  description={post.zh.data.description}
+  lang="zh"
+  alt={post.en ? `${base}posts/${post.slug}/` : null}
+>
+  <article class="post">
     <header>
       <div class="meta">
         <span>{when}</span>
-        {post.en && <a href={`${base}posts/${post.slug}/`}>English</a>}
       </div>
       <h1>{post.zh.data.title}</h1>
     </header>

@@ -11,15 +11,19 @@ import { SITE } from '../site.config.mjs'
 interface Props {
   title?: string
   description?: string
+  /** page language — sets <html lang> and the switcher's label */
+  lang?: 'en' | 'zh'
+  /** the SAME page in the other language; absent = no switcher */
+  alt?: string | null
 }
-const { title, description } = Astro.props
+const { title, description, lang = 'en', alt = null } = Astro.props
 const base = import.meta.env.BASE_URL
 const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title
 const desc = description ?? SITE.description
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang === 'zh' ? 'zh-Hant' : 'en'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -40,8 +44,11 @@ const desc = description ?? SITE.description
     <div class="wrap">
       <header class="site">
         <nav>
-          <a href={`${base}rss.xml`}>rss</a>
-          {SITE.github && <a href={SITE.github}>github</a>}
+          {/* the standard corner switcher: the OTHER language, named
+              in its own script, pointing at the SAME page over there */}
+          {alt && <a href={alt}>{lang === 'en' ? '中文' : 'English'}</a>}
+          <a href={`${base}rss.xml`} title="subscribe — new posts land in your feed reader">RSS</a>
+          {SITE.github && <a href={SITE.github}>GitHub</a>}
         </nav>
         <a class="brand" href={base}>
           {/* the mark IS an asterism: three stars, one line of sky */}
@@ -63,8 +70,8 @@ const desc = description ?? SITE.description
       <slot />
       <footer class="site">
         <span>{SITE.title}</span>
-        <a href={`${base}rss.xml`}>rss</a>
-        {SITE.github && <a href={SITE.github}>github</a>}
+        <a href={`${base}rss.xml`} title="subscribe — new posts land in your feed reader">RSS</a>
+        {SITE.github && <a href={SITE.github}>GitHub</a>}
         {SITE.email && <a href={`mailto:${SITE.email}`}>{SITE.email}</a>}
       </footer>
     </div>
