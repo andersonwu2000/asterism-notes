@@ -287,10 +287,34 @@ article.post .meta a:hover {
   padding: 0;
   font-size: 0.82rem;
 }
+/* the section break IS the site's namesake: the typographic asterism */
 .prose hr {
   border: none;
-  border-top: 1px solid var(--edge);
-  margin: 2.4em 0;
+  margin: 2.2em 0;
+  text-align: center;
+}
+.prose hr::after {
+  content: '⁂';
+  color: var(--ink-faint);
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+}
+
+/* hover-revealed § anchors — deep links into long arguments */
+.prose .hanchor {
+  margin-left: 0.45em;
+  color: var(--ink-faint);
+  font-size: 0.75em;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.prose h2:hover .hanchor,
+.prose h3:hover .hanchor {
+  opacity: 1;
+}
+.prose .hanchor:hover {
+  color: var(--ink);
 }
 .prose img {
   max-width: 100%;
@@ -402,8 +426,14 @@ article.post .meta a:hover {
 
 /* ---- post footer ------------------------------------------------- */
 
+.endmark {
+  margin-top: 3rem;
+  text-align: center;
+  color: var(--ink-faint);
+  letter-spacing: 0.3em;
+}
 .post-tail {
-  margin-top: 3.4rem;
+  margin-top: 2.2rem;
   padding-top: 1.2rem;
   border-top: 1px solid var(--edge);
   font-size: 0.88rem;
@@ -414,6 +444,53 @@ article.post .meta a:hover {
   text-decoration: underline;
   text-decoration-color: var(--edge-strong);
   text-underline-offset: 3px;
+}
+
+details.cite {
+  margin-top: 0.9rem;
+  font-size: 0.8rem;
+}
+details.cite summary {
+  cursor: pointer;
+  list-style: none;
+  color: var(--ink-faint);
+  transition: color 0.15s;
+}
+details.cite summary:hover {
+  color: var(--ink);
+}
+details.cite pre {
+  margin: 0.6rem 0 0;
+  padding: 0.8rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--edge);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--ink-dim);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+nav.neighbours {
+  margin-top: 1.6rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  font-size: 0.82rem;
+}
+nav.neighbours a {
+  color: var(--ink-faint);
+  text-decoration: none;
+  max-width: 46%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+nav.neighbours a:hover {
+  color: var(--ink);
 }
 
 @media (max-width: 560px) {

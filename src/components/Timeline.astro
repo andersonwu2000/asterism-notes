@@ -33,7 +33,7 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10)
         <li class={p.slug === current ? 'now' : ''}>
           <a href={href(p)} title={label(p)}>
             <span class="t-dot" aria-hidden="true" />
-            <span class="t-when">{fmt(p.date)}</span>
+            <span class="t-when">№ {p.no} · {fmt(p.date)}</span>
             <span class="t-title">{label(p)}</span>
           </a>
         </li>

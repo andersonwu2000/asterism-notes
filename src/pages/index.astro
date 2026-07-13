@@ -23,7 +23,7 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10)
     {
       posts.map((p) => (
         <li>
-          <span class="when">{fmt(p.date)}</span>
+          <span class="when">№ {p.no} · {fmt(p.date)}</span>
           {!p.en && <span class="lang">中文</span>}
           <h2>
             <a

@@ -27,7 +27,7 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10)
         const side = p.zh ?? p.en
         return (
           <li>
-            <span class="when">{fmt(p.date)}</span>
+            <span class="when">№ {p.no} · {fmt(p.date)}</span>
             {!p.zh && <span class="lang">English</span>}
             <h2>
               <a

@@ -30,6 +30,15 @@ export async function pairedPosts() {
       description: head.data.description,
     }
   })
-  out.sort((a, b) => b.date.getTime() - a.date.getTime())
+  // № by publication order (date ascending, slug as tiebreak): a
+  // numbered series reads as a deliberate corpus, and "see № 4" is
+  // how this audience talks (design round, 2026-07-13)
+  out.sort(
+    (a, b) => a.date.getTime() - b.date.getTime() || a.slug.localeCompare(b.slug),
+  )
+  out.forEach((p, i) => {
+    p.no = i
+  })
+  out.reverse() // newest first for every listing surface
   return out
 }

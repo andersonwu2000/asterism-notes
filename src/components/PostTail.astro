@@ -2,15 +2,33 @@
 import { SITE } from '../site.config.mjs'
 
 /*
- * Under every post: the contact line (owner call, 2026-07-13 — no
- * comment section; a mailbox is a kinder pace for disagreement).
+ * Post endmatter: contact line, a one-click citation (the audience's
+ * native way to take something seriously), the ⁂ end mark, and quiet
+ * older/newer neighbours so finishing an essay hands you the corpus
+ * (design round, 2026-07-13).
  */
 interface Props {
   lang?: 'en' | 'zh'
+  no?: number
+  title?: string
+  year?: number
+  prev?: { no: number; title: string; href: string } | null
+  next?: { no: number; title: string; href: string } | null
 }
-const { lang = 'en' } = Astro.props
+const { lang = 'en', no, title, year, prev = null, next = null } = Astro.props
+const canonical = new URL(Astro.url.pathname, Astro.site).href
+const bibtex =
+  no !== undefined && title
+    ? `@misc{asterism-note-${no},
+${SITE.author ? `  author = {${SITE.author}},\n` : ''}  title = {${title}},
+  howpublished = {Asterism Notes, no.~${no}},
+  year = {${year ?? new Date().getFullYear()}},
+  url = {${canonical}}
+}`
+    : null
 ---
 
+<div class="endmark" aria-hidden="true">⁂</div>
 {
   SITE.email && (
     <div class="post-tail">
@@ -26,5 +44,33 @@ const { lang = 'en' } = Astro.props
         </>
       )}
     </div>
+  )
+}
+{
+  bibtex && (
+    <details class="cite">
+      <summary>{lang === 'zh' ? '引用本文' : 'cite this note'}</summary>
+      <pre>{bibtex}</pre>
+    </details>
+  )
+}
+{
+  (prev || next) && (
+    <nav class="neighbours" aria-label={lang === 'zh' ? '相鄰文章' : 'neighbouring notes'}>
+      {prev ? (
+        <a href={prev.href}>
+          ← № {prev.no} · {prev.title}
+        </a>
+      ) : (
+        <span />
+      )}
+      {next ? (
+        <a href={next.href}>
+          № {next.no} · {next.title} →
+        </a>
+      ) : (
+        <span />
+      )}
+    </nav>
   )
 }
