@@ -8,7 +8,11 @@ const base = import.meta.env.BASE_URL
 const fmt = (d: Date) => d.toISOString().slice(0, 10)
 ---
 
-<Base lang="zh" alt={base}>
+<Base
+  lang="zh"
+  alt={base}
+  description="關於讓 LLM agent 書寫機器驗證數學的設計筆記"
+>
   <Timeline posts={posts} current="" lang="zh" />
   <section class="preamble">
     <h1>Asterism Notes</h1>

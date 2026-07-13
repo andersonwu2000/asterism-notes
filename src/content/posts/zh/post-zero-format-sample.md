@@ -32,12 +32,9 @@ $$
 ```lean
 import Mathlib
 
-/-- 圓的恆等迴圈不是零倫的——承重的一步見
-`circle_not_simply_connected`。 -/
-theorem circle_id_essential :
-    ¬ Nullhomotopic (ContinuousMap.id : C(S¹, S¹)) := by
-  intro h
-  exact circle_not_simply_connected (h.trans rfl)
+/-- 平方非負——`nlinarith` 一半收尾動作背後的一行主力；
+薄薄包一層 `sq_nonneg`。 -/
+theorem sq_nonneg' (a : ℝ) : 0 ≤ a ^ 2 := sq_nonneg a
 ```
 
 ## 家務事

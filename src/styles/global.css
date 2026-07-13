@@ -276,6 +276,10 @@ article.post .meta a:hover {
   padding: 1rem 1.2rem;
   overflow-x: auto;
   line-height: 1.6;
+  /* a visible thin scrollbar: on phones a clipped token otherwise
+     reads as truncation, not as "scroll me" (cold-eye, 390px) */
+  scrollbar-width: thin;
+  scrollbar-color: var(--edge-strong) transparent;
 }
 .prose pre code {
   background: none;
@@ -315,7 +319,10 @@ article.post .meta a:hover {
 .syn-str { color: var(--syn-str); }
 .syn-num { color: var(--syn-num); }
 .syn-attr { color: var(--syn-attr); }
-.syn-cmt { color: var(--ink-faint); font-style: italic; }
+/* comments carry the cross-references — reading site, so brighter
+   than the console's faint (cold-eye: 3.4:1 failed AA); no synthetic
+   oblique for CJK fallback glyphs (they shear into mush) */
+.syn-cmt { color: #8b8e96; font-style: italic; font-synthesis: none; }
 .syn-cmt-ref { color: color-mix(in srgb, var(--syn-num) 90%, transparent); }
 
 /* ---- timeline (post pages, wide screens) -------------------------

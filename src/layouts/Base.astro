@@ -15,11 +15,27 @@ interface Props {
   lang?: 'en' | 'zh'
   /** the SAME page in the other language; absent = no switcher */
   alt?: string | null
+  /** 'article' on post pages, 'website' elsewhere */
+  ogType?: string
+  /** post pages carry their own contact line — skip the footer's */
+  footerEmail?: boolean
 }
-const { title, description, lang = 'en', alt = null } = Astro.props
+const {
+  title,
+  description,
+  lang = 'en',
+  alt = null,
+  ogType = 'website',
+  footerEmail = true,
+} = Astro.props
 const base = import.meta.env.BASE_URL
 const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title
 const desc = description ?? SITE.description
+const canonical = new URL(Astro.url.pathname, Astro.site).href
+const altAbs = alt ? new URL(alt, Astro.site).href : null
+/** the brand link goes HOME — in the reader's current language, not
+ * silently back to English (cold-eye finding #2) */
+const home = lang === 'zh' ? `${base}zh/` : base
 ---
 
 <!doctype html>
@@ -31,7 +47,12 @@ const desc = description ?? SITE.description
     <meta name="description" content={desc} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={desc} />
-    <meta property="og:type" content="article" />
+    <meta property="og:type" content={ogType} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={lang === 'zh' ? 'zh-Hant' : 'en'} href={canonical} />
+    {altAbs && (
+      <link rel="alternate" hreflang={lang === 'zh' ? 'en' : 'zh-Hant'} href={altAbs} />
+    )}
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     <link
       rel="alternate"
@@ -50,7 +71,7 @@ const desc = description ?? SITE.description
           <a href={`${base}rss.xml`} title="subscribe — new posts land in your feed reader">RSS</a>
           {SITE.github && <a href={SITE.github}>GitHub</a>}
         </nav>
-        <a class="brand" href={base}>
+        <a class="brand" href={home}>
           {/* the mark IS an asterism: three stars, one line of sky */}
           <svg width="19" height="19" viewBox="0 0 20 20" aria-hidden="true">
             <path
@@ -72,7 +93,9 @@ const desc = description ?? SITE.description
         <span>{SITE.title}</span>
         <a href={`${base}rss.xml`} title="subscribe — new posts land in your feed reader">RSS</a>
         {SITE.github && <a href={SITE.github}>GitHub</a>}
-        {SITE.email && <a href={`mailto:${SITE.email}`}>{SITE.email}</a>}
+        {footerEmail && SITE.email && (
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        )}
       </footer>
     </div>
   </body>

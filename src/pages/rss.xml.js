@@ -10,7 +10,9 @@ export async function GET(context) {
   return rss({
     title: SITE.title,
     description: SITE.description,
-    site: context.site,
+    // the channel link must be the site's HOME, base included — the
+    // bare origin 404s on a project page (cold-eye finding #1)
+    site: new URL(import.meta.env.BASE_URL, context.site).href,
     items: posts.map((p) => ({
       title: p.en ? p.title : `${p.title}（中文）`,
       pubDate: p.date,

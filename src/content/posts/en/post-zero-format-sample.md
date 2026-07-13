@@ -35,12 +35,9 @@ Asterism console uses — six low-saturation inks, nothing else:
 ```lean
 import Mathlib
 
-/-- The circle's identity loop is not null-homotopic — see
-`circle_not_simply_connected` for the load-bearing step. -/
-theorem circle_id_essential :
-    ¬ Nullhomotopic (ContinuousMap.id : C(S¹, S¹)) := by
-  intro h
-  exact circle_not_simply_connected (h.trans rfl)
+/-- Squares are nonnegative — the one-line workhorse behind half of
+`nlinarith`'s closing moves; a thin wrapper over `sq_nonneg`. -/
+theorem sq_nonneg' (a : ℝ) : 0 ≤ a ^ 2 := sq_nonneg a
 ```
 
 ## Housekeeping
