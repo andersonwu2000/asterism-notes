@@ -24,6 +24,12 @@
   --syn-str: #a6c18b;
   --syn-num: #d5ac7c;
   --syn-attr: #b3a0cf;
+  --syn-cmt: #8b8e96;
+
+  --nebula-a: rgba(255, 255, 255, 0.03);
+  --nebula-b: rgba(255, 255, 255, 0.02);
+  --glow: rgba(244, 245, 248, 0.55);
+  --scheme: dark;
 
   --font-sans:
     'Inter', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei',
@@ -33,13 +39,43 @@
     'Fraunces Variable', Georgia, 'Noto Serif TC', 'PMingLiU', serif;
 }
 
+/* Light: the ACHROMATIC axis inverts cleanly (1−x per channel — the
+ * owner's arithmetic): night black becomes paper white, the brightest
+ * ink (starlight) becomes the deepest. The six code hues do NOT
+ * invert (1−x flips a hue to its complement) — same hue, lightness
+ * pulled down to read on paper. */
+:root[data-theme='light'] {
+  --bg: #f5f5f3;
+  --surface: #efefec;
+  --surface-2: #e8e8e4;
+  --edge: rgba(0, 0, 0, 0.09);
+  --edge-strong: rgba(0, 0, 0, 0.2);
+  --ink: #17171b;
+  --ink-dim: #55565e;
+  --ink-faint: #8f9096;
+  --starlight: #0b0c10;
+
+  --syn-kw: #b04a62;
+  --syn-decl: #33689d;
+  --syn-sort: #2e7d64;
+  --syn-str: #5a7d3a;
+  --syn-num: #9c6b26;
+  --syn-attr: #6f5a99;
+  --syn-cmt: #74767e;
+
+  --nebula-a: rgba(0, 0, 0, 0.025);
+  --nebula-b: rgba(0, 0, 0, 0.015);
+  --glow: rgba(11, 12, 16, 0.4);
+  --scheme: light;
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
   background: var(--bg);
-  color-scheme: dark;
+  color-scheme: var(--scheme);
 }
 
 body {
@@ -58,8 +94,8 @@ body::before {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(55% 40% at 28% 8%, rgba(255, 255, 255, 0.03), transparent),
-    radial-gradient(45% 35% at 80% 90%, rgba(255, 255, 255, 0.02), transparent);
+    radial-gradient(55% 40% at 28% 8%, var(--nebula-a), transparent),
+    radial-gradient(45% 35% at 80% 90%, var(--nebula-b), transparent);
 }
 
 .wrap {
@@ -103,6 +139,19 @@ header.site nav a {
   transition: color 0.15s;
 }
 header.site nav a:hover {
+  color: var(--ink);
+}
+.theme-toggle {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 0.95rem;
+  line-height: 1;
+  color: var(--ink-faint);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.theme-toggle:hover {
   color: var(--ink);
 }
 
@@ -346,7 +395,7 @@ article.post .meta a:hover {
 /* comments carry the cross-references — reading site, so brighter
    than the console's faint (cold-eye: 3.4:1 failed AA); no synthetic
    oblique for CJK fallback glyphs (they shear into mush) */
-.syn-cmt { color: #8b8e96; font-style: italic; font-synthesis: none; }
+.syn-cmt { color: var(--syn-cmt); font-style: italic; font-synthesis: none; }
 .syn-cmt-ref { color: color-mix(in srgb, var(--syn-num) 90%, transparent); }
 
 /* ---- timeline (post pages, wide screens) -------------------------
@@ -414,7 +463,7 @@ article.post .meta a:hover {
   }
   .timeline li.now .t-dot {
     background: var(--starlight);
-    box-shadow: 0 0 6px rgba(244, 245, 248, 0.55);
+    box-shadow: 0 0 6px var(--glow);
     width: 5px;
     height: 5px;
     left: -3px;

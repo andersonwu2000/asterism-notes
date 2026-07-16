@@ -60,6 +60,19 @@ const home = lang === 'zh' ? `${base}zh/` : base
       title={SITE.title}
       href={`${base}rss.xml`}
     />
+    <script is:inline>
+      // theme before first paint (no flash): stored choice wins,
+      // otherwise the system preference
+      ;(() => {
+        let t = null
+        try {
+          t = localStorage.getItem('theme')
+        } catch {}
+        if (t !== 'light' && t !== 'dark')
+          t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+        document.documentElement.dataset.theme = t
+      })()
+    </script>
   </head>
   <body>
     <div class="wrap">
@@ -70,6 +83,14 @@ const home = lang === 'zh' ? `${base}zh/` : base
           {alt && <a href={alt}>{lang === 'en' ? '中文' : 'English'}</a>}
           <a href={`${base}rss.xml`} title="subscribe — new posts land in your feed reader">RSS</a>
           {SITE.github && <a href={SITE.github}>GitHub</a>}
+          <button
+            id="theme-toggle"
+            class="theme-toggle"
+            title={lang === 'zh' ? '黑／白模式' : 'dark / light'}
+            aria-label="toggle color scheme"
+          >
+            ◐
+          </button>
         </nav>
         <a class="brand" href={home}>
           {/* the mark IS an asterism: three stars, one line of sky */}
@@ -98,5 +119,15 @@ const home = lang === 'zh' ? `${base}zh/` : base
         )}
       </footer>
     </div>
+    <script is:inline>
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        const next =
+          document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'
+        document.documentElement.dataset.theme = next
+        try {
+          localStorage.setItem('theme', next)
+        } catch {}
+      })
+    </script>
   </body>
 </html>
